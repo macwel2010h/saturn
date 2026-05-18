@@ -55,7 +55,7 @@ func PostSignInHandler(p *models.Post) http.HandlerFunc {
 				ServerError(w, r, err)
 				return
 			}
-			err = ts.ExecuteTemplate(w, "signIn.html", signinForm)
+			err = ts.ExecuteTemplate(w, "signIn.html", Data)
 			if err != nil {
 				ServerError(w, r, err)
 			}
@@ -68,7 +68,7 @@ func PostSignInHandler(p *models.Post) http.HandlerFunc {
 					ServerError(w, r, err)
 					return
 				}
-				err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", nil)
+				err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", Data)
 				if err != nil {
 					ServerError(w, r, err)
 				}

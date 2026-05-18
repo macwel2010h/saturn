@@ -11,15 +11,16 @@ type templateData struct {
 	Post            *models.Post
 	Feed            *models.Posts
 	FieldErrors     map[string]string
-	UserForm        any
+	UserForm        *UserForm
 	Flash           string
 	IsAuthenticated bool
 }
 
 var Data = templateData{
-	User: &models.User{},
-	Post: &models.Post{},
-	Feed: &models.Posts{},
+	User:     &models.User{},
+	Post:     &models.Post{},
+	Feed:     &models.Posts{},
+	UserForm: &userForm,
 }
 
 func PostFeedDisplay(w http.ResponseWriter, r *http.Request) {

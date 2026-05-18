@@ -24,7 +24,7 @@
               name="firstName"
               placeholder="First name"
               class="{{if .FieldErrors.firstName}}error{{end}}"
-              value="{{.FirstName}}"
+              value="{{.UserForm.FirstName}}"
             />
           </label>
 
@@ -37,7 +37,7 @@
               name="lastName"
               placeholder="Last name"
               class="{{if .FieldErrors.lastName}}error{{end}}"
-              value="{{.LastName}}"
+              value="{{.UserForm.LastName}}"
             />
           </label>
         </div>
@@ -51,7 +51,7 @@
             name="username"
             placeholder="Choose a username"
             class="{{if .FieldErrors.username}}error{{end}}"
-            value="{{.Username}}"
+            value="{{.UserForm.Username}}"
           />
         </label>
 
@@ -64,7 +64,7 @@
             name="email"
             placeholder="you@example.com"
             class="{{if .FieldErrors.email}}error{{end}}"
-            value="{{.Email}}"
+            value="{{.UserForm.Email}}"
           />
         </label>
 

@@ -11,9 +11,8 @@ import (
 )
 
 type Application struct {
-	Logger *slog.Logger
-	DB     *sql.DB
-
+	Logger         *slog.Logger
+	DB             *sql.DB
 	SessionManager *scs.SessionManager
 	FormDecoder    *form.Decoder
 }

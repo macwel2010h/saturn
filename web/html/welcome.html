@@ -12,14 +12,14 @@
     <main class="card">
       <div class="success-icon">✓</div>
 
-      <h1>Welcome, {{.FirstName}}!</h1>
+      <h1>Welcome, {{.UserForm.FirstName}}!</h1>
 
       <p class="tagline">Your account has been successfully created.</p>
 
       <div class="account-details">
         <p>
           <strong>Your Username : </strong>
-          <span class="username-display">{{.Username}}</span>
+          <span class="username-display">{{.UserForm.Username}}</span>
         </p>
         <p class="verification-note">
           Please sign in with your new username and password to verify your

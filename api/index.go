@@ -11,7 +11,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.ExecuteTemplate(w, "index.html", nil)
+	err = ts.ExecuteTemplate(w, "index.html", Data)
 	if err != nil {
 		ServerError(w, r, err)
 	}

@@ -3,6 +3,7 @@ package handlers
 import (
 	"html/template"
 	"net/http"
+	"serv-test/helpers"
 )
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
@@ -11,8 +12,9 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 		return
 	}
+	Data.IsAuthenticated = helpers.IsAuthenticated(r)
 
-	err = ts.ExecuteTemplate(w, "createAccount.html", userForm)
+	err = ts.ExecuteTemplate(w, "createAccount.html", Data)
 	if err != nil {
 		ServerError(w, r, err)
 	}

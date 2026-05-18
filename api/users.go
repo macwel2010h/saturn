@@ -42,8 +42,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	userForm.CheckField(validator.NotBlank(userForm.Password), "password", "Password can not be blank.")
 	userForm.CheckField(validator.CheckUsername(userForm.Username), "username", "Username already exist.")
 
+	Data.FieldErrors = userForm.FieldErrors
+
 	if userForm.Valid() {
-		// convert handler form to models.User
+
 		newUser := models.User{
 			FirstName: userForm.FirstName,
 			LastName:  userForm.LastName,
@@ -51,10 +53,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 			Email:     userForm.Email,
 			Password:  userForm.Password,
 		}
-
-		// optionally hash the password before storing:
-		// err = models.HashPassword(&newUser.Password)
-		// if err != nil { ServerError(w, r, err); return }
 
 		err = um.StoreCreateUser(&newUser)
 		if err != nil {
@@ -65,13 +63,14 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/welcome", 303)
 
 	} else {
+
 		ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 
 		if err != nil {
 			ServerError(w, r, err)
 			return
 		}
-		err = ts.ExecuteTemplate(w, "createAccount.html", userForm)
+		err = ts.ExecuteTemplate(w, "createAccount.html", Data)
 		if err != nil {
 			ServerError(w, r, err)
 		}
