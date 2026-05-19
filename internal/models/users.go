@@ -23,9 +23,7 @@ type UserModel struct {
 }
 
 func (um *UserModel) StoreCreateUser(u *User) error {
-	if um.DB == nil {
-		um.DB = config.App.DB
-	}
+
 	stmt := `INSERT INTO users (firstName, lastName, username, email, password)
 	VALUES(?,?,?,?,?)`
 
@@ -37,7 +35,10 @@ func (um *UserModel) StoreCreateUser(u *User) error {
 	return nil
 }
 
-func StoreDeleteUser(username string) (int, error) {
+func (um *UserModel) StoreDeleteUser(username string) (int, error) {
+	if um == nil || um.DB == nil {
+		return 0, errors.New("database not initialized")
+	}
 	return 0, nil
 }
 
@@ -59,11 +60,12 @@ func (um *UserModel) CheckUserInDatabase(username, password string) (User, error
 	}
 	return u, nil
 }
-
-func CheckUsernameAvailability(usernameForm string) bool {
+func (um *UserModel) CheckUsernameAvailability(usernameForm string) bool {
+	if um == nil || um.DB == nil {
+		return false
+	}
 	stmt := `SELECT username FROM users`
 
-	um := UserModel{DB: config.App.DB}
 	usernamerows, err := um.DB.Query(stmt)
 	if err != nil {
 		return false
@@ -83,6 +85,11 @@ func CheckUsernameAvailability(usernameForm string) bool {
 		}
 	}
 	return matched
+}
+
+func CheckUsernameAvailability(usernameForm string) bool {
+	um := UserModel{DB: config.App.DB}
+	return um.CheckUsernameAvailability(usernameForm)
 }
 
 func HashPassword(pass *string) error {

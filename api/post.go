@@ -19,7 +19,12 @@ func PostHandler(p *models.Post, pm *models.PostModel) http.HandlerFunc {
 		p.Title = r.PostForm.Get("title")
 		p.Content = r.PostForm.Get("content")
 
-		err = models.StoreCreatePost(p)
+		if pm == nil {
+			ServerError(w, r, fmt.Errorf("post model is nil"))
+			return
+		}
+
+		err = pm.StoreCreatePost(p)
 		if err != nil {
 			ServerError(w, r, err)
 			return

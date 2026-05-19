@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"serv-test/config"
 	"serv-test/internal/models"
 	"serv-test/internal/validator"
 )
@@ -26,11 +25,9 @@ type SigninForm struct {
 	validator.Validator
 }
 
-func PostSignInHandler(p *models.Post) http.HandlerFunc {
+func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var um = models.UserModel{}
-
-		if config.App.DB == nil {
+		if um == nil || um.DB == nil {
 			http.Error(w, "Database config not configured", http.StatusInternalServerError)
 			return
 		}
