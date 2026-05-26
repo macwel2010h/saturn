@@ -2,6 +2,8 @@
   <a href="/">Home</a>
   <a href="/about">About Us</a>
   {{if .IsAuthenticated}}
-  <a href="/index" >Sign out </a>
+  <a class="nav-auth" href="/index">Sign out</a>
+  {{else}}
+  <a class="nav-auth" href="/signIn">Sign In</a>
   {{end}}
 </nav>
