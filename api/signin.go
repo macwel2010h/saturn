@@ -60,7 +60,7 @@ func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 
 			_, err := um.CheckUserInDatabase(username, password)
 			if err != nil {
-				ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+				ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html", "web/html/t_footer.html")
 				if err != nil {
 					ServerError(w, r, err)
 					return

@@ -1,5 +1,5 @@
 app-up : MySQL	
-	sleep 7
+	sleep 8
 	go mod tidy
 	go run .
 

@@ -7,10 +7,7 @@ services:
       dockerfile: Dockerfile
     image: saturn_mysql_image
     container_name: saturn_mysql_container
-  
-
     restart: always
-
 
     environment:
       MYSQL_ROOT_PASSWORD: abcd@1234
