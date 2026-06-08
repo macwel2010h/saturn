@@ -52,7 +52,7 @@ func (um *UserModel) CheckUserInDatabase(username, password string) (User, error
 		if err == sql.ErrNoRows {
 			return User{}, errors.New("No user found")
 		}
-		return User{}, err
+		return u, nil
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
 	if err != nil {

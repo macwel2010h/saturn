@@ -25,6 +25,8 @@ type SigninForm struct {
 	validator.Validator
 }
 
+var signinForm = SigninForm{}
+
 func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if um == nil || um.DB == nil {
@@ -41,8 +43,6 @@ func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 		username := r.PostForm.Get("username")
 		password := r.PostForm.Get("password")
 
-		var signinForm = SigninForm{}
-
 		signinForm.CheckField(validator.NotBlank(username), "username", "Username can not be empty.")
 		signinForm.CheckField(validator.NotBlank(password), "password", "Password can not be empty.")
 
@@ -58,7 +58,7 @@ func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 			}
 		} else {
 
-			_, err := um.CheckUserInDatabase(username, password)
+			u, err := um.CheckUserInDatabase(username, password)
 			if err != nil {
 				ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html", "web/html/t_footer.html")
 				if err != nil {
@@ -71,7 +71,7 @@ func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 				}
 				return
 			} else {
-
+				Data.User = &u
 				p.UserName = username
 				PostFeedDisplay(w, r)
 
