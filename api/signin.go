@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"serv-test/config"
 	"serv-test/internal/models"
 	"serv-test/internal/validator"
 )
@@ -72,6 +73,8 @@ func PostSignInHandler(p *models.Post, um *models.UserModel) http.HandlerFunc {
 				return
 			} else {
 				Data.User = &u
+				config.App.SessionManager.Put(r.Context(), "authenticatedUsername", username)
+				config.App.SessionManager.Put(r.Context(), "authenticatedUserID", u.ID)
 				p.UserName = username
 				PostFeedDisplay(w, r)
 

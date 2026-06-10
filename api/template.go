@@ -39,11 +39,11 @@ func PostFeedDisplay(w http.ResponseWriter, r *http.Request) {
 	defer postrows.Close()
 
 	for postrows.Next() {
-		var post models.Post
-		if err := postrows.Scan(&post.ID, &post.UserName, &post.Title, &post.Content, &post.Created_at); err != nil {
+
+		if err := postrows.Scan(&Data.Post.ID, &Data.Post.UserName, &Data.Post.Title, &Data.Post.Content, &Data.Post.Created_at); err != nil {
 			return
 		}
-		Data.Feed.Posts = append(Data.Feed.Posts, post)
+		Data.Feed.Posts = append(Data.Feed.Posts, *Data.Post)
 	}
 
 }
