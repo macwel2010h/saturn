@@ -67,7 +67,7 @@ func CreateUser(um *models.UserModel) http.HandlerFunc {
 
 		} else {
 
-			ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+			ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html", "web/html/t_footer.html")
 
 			if err != nil {
 				ServerError(w, r, err)
